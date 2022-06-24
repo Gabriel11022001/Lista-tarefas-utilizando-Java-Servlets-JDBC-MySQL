@@ -8,4 +8,10 @@ public class ValidaFormulario {
 		}
 		return true;
 	}
+	public static Boolean validarFormularioAtualizarTarefa(String titulo, String status) throws Exception {
+		if (titulo.isEmpty() || status.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 }

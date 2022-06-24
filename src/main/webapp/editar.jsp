@@ -12,10 +12,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/estilos-base.css">
 	<link rel="stylesheet" href="css/menu.css">
-	<title>Lista de tarefas</title>
+	<title>Lista de tarefas - Edição</title>
 </head>
 <body>
-	<!-- Cabeçalho da página com a listagem de tarefas. -->
+	<!-- Cabeçalho da página para edição de tarefas. -->
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark">
 			<a class="navbar-brand" href="#">Lista de tarefas</a>
@@ -36,50 +36,31 @@
 	</header>
 	<main class="mt-5 mb-5">
 		<section class="container">
-			<a href="/lista-tarefas/cadastrar" class="btn btn-primary"><i class="fa-solid fa-plus"></i>  Cadastrar tarefa</a>
 			<%
-				String mensagemConsultarTodasAsTarefasNoBancoDeDados = (String) request.getAttribute("mensagem");
-				List<Tarefa> tarefas = null;
-				if (mensagemConsultarTodasAsTarefasNoBancoDeDados.equals("Tarefas consultadas com sucesso!")) {
-					tarefas = (List<Tarefa>) request.getAttribute("tarefas");
-				}
+				Tarefa tarefa = (Tarefa) request.getAttribute("tarefa");
 			%>
-			<%
-				if (mensagemConsultarTodasAsTarefasNoBancoDeDados.equals("Tarefas consultadas com sucesso!")) { %>
-					<table class="table table-striped table-responsive mt-3">
-					  <thead>
-					    <tr>
-					      <th scope="col">Título da tarefa</th>
-					      <th scope="col">Status</th>
-					      <th scope="col">Data de cadastro</th>
-					      <th scope="col">Ações</th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					  	<%
-					  		for (Tarefa tarefa : tarefas) { %>
-					  			<tr>
-							      <th scope="row"><%= tarefa.getTitulo() %></th>
-							      <th scope="col"><%= tarefa.getStatus() %></th>
-							      <th scope="col"><%= tarefa.getDataCadastro() %></th>
-							      <td>
-							      	<a href="/lista-tarefas/editar?id=<%= tarefa.getId() %>" class="btn btn-warning"><i class="fa-solid fa-pen"></i>  Editar</a>
-							      	<a href="/lista-tarefas/excluir?id=<%= tarefa.getId() %>" class="btn btn-danger"><i class="fa-solid fa-trash"></i>  Excluir</a>
-							      </td>
-							    </tr>
-					  		<%
-					  		}
-					  	%>
-					  </tbody>
-					</table>
-				<%
-				} else { %>
-					<div class="alert alert-danger mt-3" role="alert">
-						<%= mensagemConsultarTodasAsTarefasNoBancoDeDados %>
-					</div>
-				<%
-				}
-			%>
+			<h1>Atualizar tarefa</h1>
+			<form action="/lista-tarefas/editar" method="post" class="mt-3 mb-2 row">
+				<div class="form-group col-12" style="display: none;">
+				    <label for="id">Id da tarefa</label>
+				    <input type="text" class="form-control" id="id" name="id" value="<%= tarefa.getId() %>" readonly="readonly">
+				</div>
+				<div class="form-group col-12 col-md-6">
+				    <label for="titulo">Título da tarefa</label>
+				    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título da tarefa..." value="<%= tarefa.getTitulo() %>">
+				</div>
+				<div class="form-group col-12 col-md-6">
+					<label for="status">Status</label>
+					<select class="form-control" id="status" name="status">
+						<option value="Em execução">Em execução</option>
+						<option value="Finalizada">Finalizada</option>
+					</select>
+				</div>
+				<div class="form-group col-12 mt-2">
+					<button type="submit" class="btn btn-primary">Salvar</button>
+				</div>
+			</form>
+			<a href="/lista-tarefas/tarefas">Voltar para a listagem de tarefas</a>
 		</section>
 	</main>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

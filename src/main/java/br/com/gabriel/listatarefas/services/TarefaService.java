@@ -79,6 +79,14 @@ public class TarefaService implements IService {
 	}
 	@Override
 	public void atualizar(Tarefa tarefa) throws Exception {
-		
+		String query = "UPDATE tbl_tarefas SET tarefa_titulo = ?, tarefa_status = ?"
+				+ " WHERE tarefa_id = ?;";
+		Connection conexao = Conexao.getConexao();
+		PreparedStatement stmt = conexao.prepareStatement(query);
+		stmt.setString(1, tarefa.getTitulo());
+		stmt.setString(2, tarefa.getStatus());
+		stmt.setInt(3, tarefa.getId());
+		stmt.executeUpdate();
+		conexao.close();
 	}
 }
