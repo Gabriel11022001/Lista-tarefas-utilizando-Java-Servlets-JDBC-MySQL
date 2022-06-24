@@ -7,7 +7,7 @@ public class Conexao {
 
 	public static Connection getConexao() throws Exception {
 		String usuarioBancoDados = "root";
-		String senhaUsuarioBancoDados = "Gabriel@11022001";
+		String senhaUsuarioBancoDados = "";
 		String bancoDados = "db_lista_tarefas";
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/" + bancoDados, usuarioBancoDados, senhaUsuarioBancoDados);
